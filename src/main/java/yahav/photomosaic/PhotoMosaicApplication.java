@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 public class PhotoMosaicApplication extends Application {
 
@@ -37,10 +38,11 @@ public class PhotoMosaicApplication extends Application {
 //                (int) image.getHeight());
 //        PixelWriter pixelWriter = wImage.getPixelWriter();
 //        imageView.setImage(wImage);
+        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++){
                 Rectangle2D rect = new Rectangle2D(x,y,50, 50);
-                System.out.println(rect);
+                rectangles.add(rect);
                 Color color = pixelReader.getColor(x,y);
                 System.out.println("R = "+(color.getRed() * 255));
                 System.out.println("G = "+(color.getGreen()* 255));
