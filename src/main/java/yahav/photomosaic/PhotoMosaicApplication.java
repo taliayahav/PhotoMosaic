@@ -1,18 +1,16 @@
 package yahav.photomosaic;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+
+import java.io.File;
 import java.io.FileInputStream;
-import java.nio.IntBuffer;
-import java.util.ArrayList;
 
 public class PhotoMosaicApplication extends Application {
 
@@ -60,6 +58,14 @@ public class PhotoMosaicApplication extends Application {
                 color = Color.color(red, green, blue);
                 pixelWriter.setColor(x,y,color);
             }
+        File[] file = new File("/Users/taliayahav/PhotoMosaic/src/main/resources/flower").listFiles();
+        for(File img : file){
+            Image fileImage = new Image(img.toURI().toString());
+            ImageView fileImageView = new ImageView();
+            fileImageView.setImage(fileImage);
+        }
+
+
 
 
         // Display image on screen
