@@ -22,12 +22,17 @@ public class PhotoMosaicApplication extends Application {
         Image image = new Image(input);
         ImageView imageView = new ImageView();
         imageView.setImage(image);
+        System.out.println("width: " + image.getWidth());
+        System.out.println("height: " + image.getHeight());
 
 //         Obtain PixelReader
         PixelReader pixelReader = image.getPixelReader();
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
-        byte[] buffer = new byte[width * height * 4];
+        int squares = 50;
+        int xInc = width/squares;
+        int yInc = height/squares;
+        //byte[] buffer = new byte[width * height * 4];
         //PixelFormat<IntBuffer> pixelFormat = PixelFormat.getByteBgraInstance();
         //int[] pixels = new int[Grid.SIZE]
 
@@ -38,18 +43,20 @@ public class PhotoMosaicApplication extends Application {
 //                (int) image.getHeight());
 //        PixelWriter pixelWriter = wImage.getPixelWriter();
 //        imageView.setImage(wImage);
-        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
-        for(int x = 0; x < width; x++)
-            for(int y = 0; y < height; y++){
-                Rectangle2D rect = new Rectangle2D(x,y,50, 50);
-                rectangles.add(rect);
+//        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
+        for(int x = 0; x < width; x+= xInc)
+            for(int y = 0; y < height; y+= yInc){
+                Rectangle2D rect = new Rectangle2D(x,y,xInc, yInc);
+//                rectangles.add(rect);
                 Color color = pixelReader.getColor(x,y);
                 System.out.println("R = "+(color.getRed() * 255));
                 System.out.println("G = "+(color.getGreen()* 255));
                 System.out.println("B = "+(color.getBlue()*255));
-//                color = color.brighter();
-//                pixelWriter.setColor(x, y,color);
+//                for (Rectangle2D rectang :rectangles) {
+//                    System.out.println(rectang..getBlue()*255);
+//                }
             }
+
 
         // Display image on screen
         imageView.setImage(image);
