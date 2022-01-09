@@ -38,22 +38,26 @@ public class PhotoMosaicApplication extends Application {
 
 
         // Create WritableImage
-//        WritableImage wImage = new WritableImage(
-//                (int) image.getWidth(),
-//                (int) image.getHeight());
-//        PixelWriter pixelWriter = wImage.getPixelWriter();
+        WritableImage wImage = new WritableImage(
+                (int) image.getWidth(),
+                (int) image.getHeight());
+        PixelWriter pixelWriter = wImage.getPixelWriter();
 //        imageView.setImage(wImage);
 //        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
+
         for(int x = 0; x < width; x+= xInc)
             for(int y = 0; y < height; y+= yInc){
                 Rectangle2D rect = new Rectangle2D(x,y,xInc, yInc);
 //                rectangles.add(rect);
                 Color color = pixelReader.getColor(x,y);
-                System.out.println("R = "+(color.getRed() * 255));
-                System.out.println("G = "+(color.getGreen()* 255));
-                System.out.println("B = "+(color.getBlue()*255));
-//                for (Rectangle2D rectang :rectangles) {
-//                    System.out.println(rectang..getBlue()*255);
+                System.out.print("section " + x + ", ");
+                System.out.println(y);
+                double red = ((color.getRed() * 255)/3);
+                double green = ((color.getGreen() * 255)/3);
+                double blue = ((color.getBlue() * 255)/3);
+//                System.out.println(avgColor);
+//                for (Rectangle2D rectangle :rectangles) {
+//                    System.out.println(color.getBlue()*255);
 //                }
             }
 
