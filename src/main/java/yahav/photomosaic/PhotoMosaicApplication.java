@@ -22,8 +22,6 @@ public class PhotoMosaicApplication extends Application {
         Image image = new Image(input);
         ImageView imageView = new ImageView();
         imageView.setImage(image);
-        System.out.println("width: " + image.getWidth());
-        System.out.println("height: " + image.getHeight());
 
 //         Obtain PixelReader
         PixelReader pixelReader = image.getPixelReader();
@@ -52,18 +50,20 @@ public class PhotoMosaicApplication extends Application {
                 Color color = pixelReader.getColor(x,y);
                 System.out.print("section " + x + ", ");
                 System.out.println(y);
-                double red = ((color.getRed() * 255)/3);
-                double green = ((color.getGreen() * 255)/3);
-                double blue = ((color.getBlue() * 255)/3);
+                double red = ((color.getRed())/3);
+                double green = ((color.getGreen())/3);
+                double blue = ((color.getBlue())/3);
 //                System.out.println(avgColor);
 //                for (Rectangle2D rectangle :rectangles) {
 //                    System.out.println(color.getBlue()*255);
 //                }
+                color = Color.color(red, green, blue);
+                pixelWriter.setColor(x,y,color);
             }
 
 
         // Display image on screen
-        imageView.setImage(image);
+        imageView.setImage(wImage);
         StackPane root = new StackPane();
         root.getChildren().add(imageView);
         Scene scene = new Scene(root, 300, 250);
