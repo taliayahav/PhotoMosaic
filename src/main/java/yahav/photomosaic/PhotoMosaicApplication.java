@@ -2,6 +2,7 @@ package yahav.photomosaic;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
@@ -31,27 +32,25 @@ public class PhotoMosaicApplication extends Application {
 
 
         // Create WritableImage
-        WritableImage wImage = new WritableImage(
-                (int) image.getWidth(),
-                (int) image.getHeight());
-        PixelWriter pixelWriter = wImage.getPixelWriter();
+//        WritableImage wImage = new WritableImage(
+//                (int) image.getWidth(),
+//                (int) image.getHeight());
+//        PixelWriter pixelWriter = wImage.getPixelWriter();
 //        imageView.setImage(wImage);
         for(int x = 0; x < width; x++)
             for(int y = 0; y < height; y++){
+                Rectangle2D rect = new Rectangle2D(x,y,50, 50);
+                System.out.println(rect);
                 Color color = pixelReader.getColor(x,y);
                 System.out.println("R = "+(color.getRed() * 255));
                 System.out.println("G = "+(color.getGreen()* 255));
                 System.out.println("B = "+(color.getBlue()*255));
-//                int pixel = wImage.9getRG
-//                pixelReader.getPixels(x,y, width, height, PixelFormat.getByteBgraInstance(), buffer, 0, width);
-                System.out.println();
-                System.out.println();
-                color = color.brighter();
-                pixelWriter.setColor(x, y,color);
+//                color = color.brighter();
+//                pixelWriter.setColor(x, y,color);
             }
 
         // Display image on screen
-        imageView.setImage(wImage);
+        imageView.setImage(image);
         StackPane root = new StackPane();
         root.getChildren().add(imageView);
         Scene scene = new Scene(root, 300, 250);
