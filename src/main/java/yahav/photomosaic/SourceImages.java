@@ -16,14 +16,7 @@ import java.io.IOException;
 
 public class SourceImages  {
     public void setFile(){
-//        File[] file = new File("/Users/taliayahav/PhotoMosaic/src/main/resources/flower").listFiles();
-//        for(File img : file){
-//            Image fileImage = new Image(img.toURI().toString());
-//            ImageView fileImageView = new ImageView();
-//            fileImageView.setImage(fileImage);
-//            fileImageView.setFitHeight(fileImageView.minHeight(fileImageView.getFitWidth()));
-//            System.out.println(fileImageView.getFitWidth());
-//        }
+
     }
 }
 

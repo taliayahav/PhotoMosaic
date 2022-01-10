@@ -28,30 +28,24 @@ public class PhotoMosaicApplication extends Application {
         imageView.setFitWidth(500);
         imageView.setImage(image);
 
-//         Obtain PixelReader
+
         PixelReader pixelReader = image.getPixelReader();
+        int squares = 50;
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
-        int squares = 50;
         int xInc = width/squares;
         int yInc = height/squares;
-        Image[] croppedImages;
-
         // Create WritableImage
         WritableImage wImage = new WritableImage(
                 (int) image.getWidth(),
                 (int) image.getHeight());
         PixelWriter pixelWriter = wImage.getPixelWriter();
-
-            //        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
         double redPixels = 0;
         double greenPixels = 0;
         double bluePixels = 0;
         double numPixels = 0;
         for(int x = 0; x < width; x+= xInc){
             for(int y = 0; y < height; y+= yInc){
-//                Rectangle2D rect = new Rectangle2D(x,y,xInc, yInc);
-//                rectangles.add(rect);
                 Color color = pixelReader.getColor(x,y);
                 System.out.print("section " + x + ", ");
                 System.out.println(y);
@@ -59,40 +53,42 @@ public class PhotoMosaicApplication extends Application {
                 greenPixels += (color.getGreen());
                 bluePixels += (color.getBlue());
                 numPixels++;
-                double red = ((redPixels/numPixels));
-                double green = ((greenPixels/numPixels));
-                double blue = ((bluePixels/numPixels));
+                double red = (redPixels);
+                double green = (greenPixels);
+                double blue = (bluePixels);
+                color = Color.color(red/numPixels, green/numPixels, blue/numPixels);
+                pixelWriter.setColor(x,y,color);
             }
         }
-            //Should each square go into an arrayList?
-
-//        File[] file = new File("src/main/resources/flower").listFiles();
-//        croppedImages = new Image[file.length];
-////        for(File img : file)
-//        for(int i=0; i< croppedImages.length; i++){
-//            Image fileImage = new Image(file[i].toURI().toString()); //converts filename to image
-//            ImageView fileImageView = new ImageView(); //set image in file to imageview
-//            fileImageView.setImage(fileImage);
-//            croppedImages[i] = fileImage; //adds each image to croppedImages list
-//            System.out.println(fileImage);
-//            int w = (int)croppedImages[i].getWidth();
-//            int h = (int)croppedImages[i].getHeight();
-//            int incImageX = w/squares;
-//            int incImageY = h/squares;
-//            for(int x = 0; x < w; x+= incImageX) {
-//                for (int y = 0; y < h; y += incImageY) {
-//                    Color srcImgClr = pixelReader.getColor(x, y);
-//                    double red = ((srcImgClr.getRed()));
-//                    double green = ((srcImgClr.getGreen()));
-//                    double blue = ((srcImgClr.getBlue()));
-//                    System.out.println("R: " + red);
-//                    System.out.println("G:" + green);
-//                    System.out.println("B: " + blue);
-//                }
-//            }
-//        }
-        //How do I trim each photo?
-        //Should each photo also go into a list to swap with the other list?
+        Image[] croppedImages;
+        File[] file = new File("src/main/resources/flower").listFiles();
+        croppedImages = new Image[file.length];
+//        for(File img : file)
+        for(int i=0; i< croppedImages.length; i++){
+            Image fileImage = new Image(file[i].toURI().toString()); //converts filename to image
+            ImageView fileImageView = new ImageView(); //set image in file to imageview
+            fileImageView.setImage(fileImage);
+            croppedImages[i] = fileImage; //adds each image to croppedImages list
+            System.out.println(fileImage);
+            int w = (int)croppedImages[i].getWidth();
+            int h = (int)croppedImages[i].getHeight();
+            int incImageX = w/squares;
+            int incImageY = h/squares;
+            for(int x = 0; x < w; x+= incImageX) {
+                for (int y = 0; y < h; y += incImageY) {
+                    Color color = pixelReader.getColor(x,y);
+                    System.out.print("section " + x + ", ");
+                    System.out.println(y);
+                    redPixels += (color.getRed());
+                    greenPixels += (color.getGreen());
+                    bluePixels += (color.getBlue());
+                    numPixels++;
+                    double red = (redPixels);
+                    double green = (greenPixels);
+                    double blue = (bluePixels);
+                    color = Color.color(red/numPixels, green/numPixels, blue/numPixels);
+            }
+        }
 
         // Display image on screen
         imageView.setImage(wImage);
