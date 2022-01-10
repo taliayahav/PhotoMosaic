@@ -2,6 +2,7 @@ package yahav.photomosaic;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelFormat;
 import javafx.scene.image.PixelReader;
 
 import java.io.FileInputStream;
@@ -19,12 +20,12 @@ public class ImagePixels{
     }
 
 
-    public int[][] getImagePixels(Image image, int width, int height) {
+    public int[] getImagePixels(Image image, int width, int height) {
         PixelReader pixelReader = image.getPixelReader();
-        int[][] pixels = new int[width][height];
+        int[] pixels = new int[width*height];
         for(int row = 0; row < height; row++) {
             for (int col = 0; col < width; col++) {
-                pixels[row][col] = image.getPixelReader().getArgb(row,col);
+                pixelReader.getPixels(row,col,width,height, PixelFormat.getIntArgbInstance(),pixels,0,width);
             }
         }
         return pixels;

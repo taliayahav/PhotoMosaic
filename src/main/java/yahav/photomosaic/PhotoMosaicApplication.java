@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 public class PhotoMosaicApplication extends Application {
@@ -27,27 +28,35 @@ public class PhotoMosaicApplication extends Application {
         imageView.setFitHeight(300);
         imageView.setFitWidth(300);
         imageView.setImage(image);
+        PixelFormat<IntBuffer> pixelFormat = PixelFormat.getIntArgbInstance();
+
 
 
         //PixelReader pixelReader = image.getPixelReader();
         int squares = 50;
         int width = (int)image.getWidth();
         int height = (int)image.getHeight();
-        int xInc = width/squares;
-        int yInc = height/squares;
+        int xInc = height/squares;
+        int yInc =
+        width/squares;
         // Create WritableImage
         WritableImage wImage = new WritableImage(
                 (int) image.getWidth(),
                 (int) image.getHeight());
         PixelWriter pixelWriter = wImage.getPixelWriter();
+        PixelReader pixelReader = image.getPixelReader();
         int[][] boxes = new int[width][height];
+        int [] pixels = new int[width*height*3];
         double redPixels = 0;
         double greenPixels = 0;
         double bluePixels = 0;
         double numPixels = 0;
-//        for(int squareX = 0; squareX < width; squareX+= xInc) {
-//            for (int squareY = 0; squareY < height; squareY += yInc) {
-//
+//        for(int x = 0; x <)
+//        pixelReader.getPixels(squareX,squareY,xInc,yInc, (WritablePixelFormat<IntBuffer>) pixelFormat,pixels,0,width);
+        
+//        for(int squareX = 0; squareX < height; squareX+= xInc) {
+//            for (int squareY = 0; squareY < width; squareY += yInc) {
+//                pixelReader.getPixels(squareX,squareY,xInc,yInc, (WritablePixelFormat<IntBuffer>) pixelFormat,pixels,0,width*3);
 //            }
 //        }
 //            for(int x = 0; x < width; x++) {
