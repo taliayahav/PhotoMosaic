@@ -39,23 +39,23 @@ public class PhotoMosaicApplication extends Application {
 //        imageView.setImage(wImage);
 
 //        ArrayList<Rectangle2D> rectangles = new ArrayList<Rectangle2D>();
-//        for(int x = 0; x < width; x+= xInc)
-//            for(int y = 0; y < height; y+= yInc){
-//                Rectangle2D rect = new Rectangle2D(x,y,xInc, yInc);
-////                rectangles.add(rect);
-//                Color color = pixelReader.getColor(x,y);
-//                System.out.print("section " + x + ", ");
-//                System.out.println(y);
-//                double red = ((color.getRed()*255));
-//                double green = ((color.getGreen()*255));
-//                double blue = ((color.getBlue()*255));
-////                System.out.println(avgColor);
-////                for (Rectangle2D rectangle :rectangles) {
-////                    System.out.println(color.getBlue()*255);
-////                }
-//                color = Color.color(red, green, blue);
-//                pixelWriter.setColor(x,y,color);
-//            }
+        for(int x = 0; x < width; x+= xInc)
+            for(int y = 0; y < height; y+= yInc){
+                Rectangle2D rect = new Rectangle2D(x,y,xInc, yInc);
+//                rectangles.add(rect);
+                Color color = pixelReader.getColor(x,y);
+                System.out.print("section " + x + ", ");
+                System.out.println(y);
+                double red = ((color.getRed()*255));
+                double green = ((color.getGreen()*255));
+                double blue = ((color.getBlue()*255));
+//                System.out.println(avgColor);
+//                for (Rectangle2D rectangle :rectangles) {
+//                    System.out.println(color.getBlue()*255);
+//                }
+                color = Color.color(red, green, blue);
+                pixelWriter.setColor(x,y,color);
+            }
         //Should each square go into an arrayList?
 
         File[] file = new File("/Users/taliayahav/PhotoMosaic/src/main/resources/flower").listFiles();
