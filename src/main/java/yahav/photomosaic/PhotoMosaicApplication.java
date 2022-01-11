@@ -28,34 +28,7 @@ public class PhotoMosaicApplication extends Application {
         imageView.setFitHeight(300);
         imageView.setFitWidth(300);
         imageView.setImage(image);
-
-        // Create WritableImage
-        WritableImage wImage = new WritableImage(
-                (int) image.getWidth(),
-                (int) image.getHeight());
-        PixelWriter pixelWriter = wImage.getPixelWriter();
-//            System.out.println(fileImage);
-//            int w = (int) croppedImages[i].getWidth();
-//            int h = (int) croppedImages[i].getHeight();
-//            int incImageX = w / squares;
-//            int incImageY = h / squares;
-//            for (int x = 0; x < w; x += incImageX) {
-//                for (int y = 0; y < h; y += incImageY) {
-//                    Color color = pixelReader.getColor(x, y);
-//                    System.out.print("section " + x + ", ");
-//                    System.out.println(y);
-//                    redPixels += (color.getRed());
-//                    greenPixels += (color.getGreen());
-//                    bluePixels += (color.getBlue());
-//                    numPixels++;
-//                    double red = (redPixels);
-//                    double green = (greenPixels);
-//                    double blue = (bluePixels);
-//                    color = Color.color(red / numPixels, green / numPixels, blue / numPixels);
-//                }
-//            }
-//        }
-
+        
         // Display image on screen
         imageView.setImage(image);
         StackPane root = new StackPane();
