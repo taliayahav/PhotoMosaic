@@ -34,17 +34,6 @@ public class PhotoMosaicApplication extends Application {
                 (int) image.getWidth(),
                 (int) image.getHeight());
         PixelWriter pixelWriter = wImage.getPixelWriter();
-        PixelReader pixelReader = image.getPixelReader();
-
-//        Image[] croppedImages;
-//        File[] file = new File("src/main/resources/flower").listFiles();
-//        croppedImages = new Image[file.length];
-//        for(File img : file)
-//        for(int i=0; i< croppedImages.length; i++) {
-//            Image fileImage = new Image(file[i].toURI().toString()); //converts filename to image
-//            ImageView fileImageView = new ImageView(); //set image in file to imageview
-//            fileImageView.setImage(fileImage);
-//            croppedImages[i] = fileImage; //adds each image to croppedImages list
 //            System.out.println(fileImage);
 //            int w = (int) croppedImages[i].getWidth();
 //            int h = (int) croppedImages[i].getHeight();
@@ -66,7 +55,6 @@ public class PhotoMosaicApplication extends Application {
 //                }
 //            }
 //        }
-            //how to crop these images?
 
         // Display image on screen
         imageView.setImage(image);
