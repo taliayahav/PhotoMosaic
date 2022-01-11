@@ -7,11 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -28,7 +30,8 @@ public class PhotoMosaicApplication extends Application {
         imageView.setFitHeight(300);
         imageView.setFitWidth(300);
         imageView.setImage(image);
-        
+
+
         // Display image on screen
         imageView.setImage(image);
         StackPane root = new StackPane();

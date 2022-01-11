@@ -1,5 +1,6 @@
 package yahav.photomosaic;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
@@ -9,18 +10,17 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class ImagePixels {
-    Image image;
-    int width = (int) image.getWidth();
-    int height = (int) image.getHeight();
+public class ImagePixels{
 
+    ArrayList<Rectangle2D> squareInput = new ArrayList<>(); //array of input squares to compare to source images
     public ImagePixels() throws IOException {
         FileInputStream input = new FileInputStream("src/main/resources/google.png");
         Image image = new Image(input);
         ImageView imageView = new ImageView();
         PixelReader pixelReader = image.getPixelReader();
-
     }
 
 
@@ -36,7 +36,8 @@ public class ImagePixels {
         double numPixels = 0;
         PixelReader pixelReader = image.getPixelReader();
         for (int squareX = 0; squareX < height; squareX += xInc) {
-            for (int squareY = 0; squareX < width; squareX += yInc) {
+            for (int squareY = 0; squareY < width; squareY += yInc) {
+                squareInput.add(new Rectangle2D(squareX,squareY,xInc,yInc)); //list of source image squares
                 for (int x = 0; x < squareX; x++) {
                     for (int y = 0; y < squareY; y++) {
                         Color color = pixelReader.getColor(squareX, squareY);
