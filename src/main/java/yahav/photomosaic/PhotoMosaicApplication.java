@@ -24,12 +24,14 @@ public class PhotoMosaicApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FileInputStream input = new FileInputStream("src/main/resources/google.png");
+        FileInputStream input = new FileInputStream("src/main/resources/google-logo.jpeg");
         Image image = new Image(input);
         ImageView imageView = new ImageView();
         imageView.setFitHeight(300);
         imageView.setFitWidth(300);
         imageView.setImage(image);
+
+
 
 
         // Display image on screen
