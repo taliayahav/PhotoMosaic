@@ -24,7 +24,7 @@ public class ImagePixels{
 
 
     public List<Color> getAvgClrs(Image image) {
-        List<Color> pixelColors = new ArrayList<>();
+        List<Color> squarerPixelColors = new ArrayList<>();
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
         int squares = 50;
@@ -45,20 +45,19 @@ public class ImagePixels{
                         bluePixels += color.getBlue();
                         numPixels++;
                         Color.color(redPixels / numPixels, greenPixels / numPixels, bluePixels / numPixels);
-                        pixelColors.add(color);
+                        squarerPixelColors.add(color);
                     }
                 }
             }
         }
-        return pixelColors;
+        return squarerPixelColors;
     }
 
-    public Color[] getSrcImgsPixels() {
+    public List<Color> getSrcImgsPixels() {
+        List<Color> allImgClrs = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
         Image[] fileImgs;
         fileImgs = new Image[file.length];
-        Color[] allImgClrs;
-        allImgClrs = new Color[fileImgs.length];
         for (int i = 0; i < fileImgs.length; i++) {
             Image fileImage = new Image(file[i].toURI().toString()); //converts filename to image
             ImageView fileImageView = new ImageView(); //set image in file to imageview
@@ -77,6 +76,8 @@ public class ImagePixels{
                         greenPixels += color.getGreen();
                         bluePixels += color.getBlue();
                         numPixels++;
+                        Color.color(redPixels / numPixels, greenPixels / numPixels, bluePixels / numPixels);
+                        allImgClrs.add(color);
                     }
                 }
             }
