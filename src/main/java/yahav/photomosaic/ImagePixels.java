@@ -23,7 +23,7 @@ public class ImagePixels{
     }
 
 
-    public List<Color> getImagePixels(Image image) {
+    public List<Color> getAvgClrs(Image image) {
         List<Color> pixelColors = new ArrayList<>();
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
