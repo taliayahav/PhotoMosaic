@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.List;
 
 public class PhotoMosaicApplication extends Application {
 
@@ -30,8 +31,6 @@ public class PhotoMosaicApplication extends Application {
         imageView.setFitHeight(300);
         imageView.setFitWidth(300);
         imageView.setImage(image);
-
-
 
 
         // Display image on screen
