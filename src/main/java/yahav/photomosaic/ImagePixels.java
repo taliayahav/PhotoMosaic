@@ -14,48 +14,59 @@ import java.util.List;
 public class ImagePixels {
 
     public List<Color> squarePixelColors;
-    public List<Color> allImgClrs;
+    public List<Color> allImageColors;
 
     ArrayList<Rectangle2D> squareInput = new ArrayList<>(); //array of input squares to compare to source images
 
     public ImagePixels() throws FileNotFoundException {
-        squarePixelColors = getAvgClrs();
+        squarePixelColors = getQuadrantColors();
         //allImgClrs = getSrcImgAvgColors();
     }
 
-    public List<Color> getAvgClrs() throws FileNotFoundException {
+    public List<Color> getQuadrantColors() throws FileNotFoundException {
         FileInputStream input = new FileInputStream("src/main/resources/google.png");
         Image image = new Image(input);
         List<Color> squareColors = new ArrayList<>();
         int width = (int) image.getWidth();
         int height = (int) image.getHeight();
-        int squares = 50;
-        int xInc = width / squares;
-        int yInc = height / squares;
-        Color pixelColorsTotal;
+        final int SQUARES = 50;
+        final int quadrantSize = SQUARES * SQUARES;
         double redPixels = 0;
         double greenPixels = 0;
         double bluePixels = 0;
-        double numPixels = 0;
+        Color quadrantColorTotal;
         PixelReader pixelReader = image.getPixelReader();
         int squareX, squareY = 0;
-        // divide the x and y pixels into 50 x 50 and go through each box that we want to check
-        for (squareX = 0; squareX < width; squareX += xInc) {
-            for (squareY = 0; squareY < height; squareY += yInc) {
-                //loop through all pixels in each quadrant
-                Color color = pixelReader.getColor(squareX, squareY);
-                redPixels += color.getRed();
-                greenPixels += color.getGreen();
-                bluePixels += color.getBlue();
-                numPixels++;
+        // divide the x and y pixels into 50 x 50 quadrants and go through each quadrant individually
+        for (squareX = 0; squareX < width; squareX += SQUARES) {
+            for (squareY = 0; squareY < height; squareY += SQUARES) {
+                // Store the RGB individually of each pixel in the quadrant to
+                // get the average of the 50x50 of this quadrant
+                for (int x = squareX; x < squareX + SQUARES; x++) {
+                    for (int y = squareY; y < squareY + SQUARES; y++) {
+                        //loop through all pixels in this quadrant
+                        Color color = pixelReader.getColor(x, y);
+                        redPixels += color.getRed();
+                        greenPixels += color.getGreen();
+                        bluePixels += color.getBlue();
+                    }
+                }
+                // average the colors in the quadrant list
+                // add that average color to your squareColors list
+                quadrantColorTotal = Color.color(redPixels / quadrantSize, greenPixels / quadrantSize,
+                        bluePixels / quadrantSize);
+                squareColors.add(quadrantColorTotal);
+
+                // reset pixel color counter to 0
+                redPixels = 0;
+                greenPixels = 0;
+                bluePixels = 0;
             }
         }
-        pixelColorsTotal = Color.color(redPixels / numPixels, greenPixels / numPixels, bluePixels / numPixels);
-        squareColors.add(pixelColorsTotal);
         return squareColors;
     }
 
-    public List<Color> getSrcImgAvgColors() {
+    public List<Color> getSourceImageColors() {
         List<Color> srcImgClrs = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
         //File[] file = new File("src/main/resources/sourceimages").listFiles(); //find better way to access files
@@ -95,12 +106,12 @@ public class ImagePixels {
         return difference;
     }
 
-    public void closestColorDiff() {
+    public void closestColorDifference() {
         double min = 1.0;
         for (int i = 0; i < squarePixelColors.size(); i++) { //every color in the input image list
             Color compare = squarePixelColors.get(i); //get the color of each box
-            for (int j = 0; j < allImgClrs.size(); j++) { //every color of the source image list
-                double distance = colorDistance(compare, allImgClrs.get(j)); //finds distance using formula between each box
+            for (int j = 0; j < allImageColors.size(); j++) { //every color of the source image list
+                double distance = colorDistance(compare, allImageColors.get(j)); //finds distance using formula between each box
                 if (distance < min) { //if distance between the two images is smaller than minimum
                     min = distance; //min becomes the distance
                     //squarePixelColors.get(i) = allImgClrs.get(j);
