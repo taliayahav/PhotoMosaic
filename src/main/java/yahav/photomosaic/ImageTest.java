@@ -1,0 +1,36 @@
+package yahav.photomosaic;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class ImageTest extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        StackPane root = new StackPane();
+        Scene scene = new Scene(root, 300, 300);
+        primaryStage.setTitle("Image Read Test");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        ImagePixels imagePixels = new ImagePixels();
+//        List<Color> list = imagePixels.getSrcImgAvgColors();
+//        System.out.println(list);
+//        System.out.println(list.size()); //should be just red
+        List<Color> colorList = imagePixels.squarePixelColors;
+        //System.out.println(colorList);
+
+    }
+}
