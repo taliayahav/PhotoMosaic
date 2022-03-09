@@ -36,10 +36,9 @@ public class ImagePixels {
         double bluePixels = 0;
         Color quadrantColorTotal;
         PixelReader pixelReader = image.getPixelReader();
-        int squareX, squareY = 0;
         // divide the x and y pixels into 50 x 50 quadrants and go through each quadrant individually
-        for (squareX = 0; squareX < width; squareX += SQUARES) {
-            for (squareY = 0; squareY < height; squareY += SQUARES) {
+        for (int squareX = 0; squareX < width; squareX += SQUARES) {
+            for (int squareY = 0; squareY < height; squareY += SQUARES) {
                 // Store the RGB individually of each pixel in the quadrant to
                 // get the average of the 50x50 of this quadrant
                 for (int x = squareX; x < squareX + SQUARES; x++) {
