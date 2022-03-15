@@ -19,8 +19,8 @@ public class ImagePixels {
     ArrayList<Rectangle2D> squareInput = new ArrayList<>(); //array of input squares to compare to source images
 
     public ImagePixels() throws FileNotFoundException {
-        squarePixelColors = getQuadrantColors();
-        //allImgClrs = getSrcImgAvgColors();
+        //squarePixelColors = getQuadrantColors(); //list of every box's average color of the input image
+        //allImageColors = getSourceImageColors(); //list of average color of every source image
     }
 
     public List<Color> getQuadrantColors() throws FileNotFoundException {
@@ -66,7 +66,7 @@ public class ImagePixels {
     }
 
     public List<Color> getSourceImageColors() {
-        List<Color> srcImgClrs = new ArrayList<>();
+        List<Color> sourceImageColors = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
         //File[] file = new File("src/main/resources/sourceimages").listFiles(); //find better way to access files
         Image[] fileImgs;
@@ -93,9 +93,9 @@ public class ImagePixels {
                 }
             }
             colorTotal = Color.color(redPixels / numPixels, greenPixels / numPixels, bluePixels / numPixels);
-            srcImgClrs.add(colorTotal);
+            sourceImageColors.add(colorTotal);
         }
-        return srcImgClrs;
+        return sourceImageColors;
     }
 
     public double colorDistance(Color firstColor, Color secondColor) {
@@ -105,17 +105,21 @@ public class ImagePixels {
         return difference;
     }
 
-    public void closestColorDifference() {
+    //exists 2 lists of colors. loop through each list
+    public File closestColorDifference() {
         double min = 1.0;
+        File[] file = new File("src/main/resources/flower").listFiles();
+        File closestFile = file[0];
         for (int i = 0; i < squarePixelColors.size(); i++) { //every color in the input image list
             Color compare = squarePixelColors.get(i); //get the color of each box
             for (int j = 0; j < allImageColors.size(); j++) { //every color of the source image list
                 double distance = colorDistance(compare, allImageColors.get(j)); //finds distance using formula between each box
                 if (distance < min) { //if distance between the two images is smaller than minimum
                     min = distance; //min becomes the distance
-                    //squarePixelColors.get(i) = allImgClrs.get(j);
+                    closestFile = file[j];
                 }
             }
         }
+        return closestFile;
     }
 }
