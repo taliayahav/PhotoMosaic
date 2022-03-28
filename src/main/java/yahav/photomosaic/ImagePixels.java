@@ -8,8 +8,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ImagePixels {
 
@@ -19,12 +18,12 @@ public class ImagePixels {
     ArrayList<Rectangle2D> squareInput = new ArrayList<>(); //array of input squares to compare to source images
 
     public ImagePixels() throws FileNotFoundException {
-        //squarePixelColors = getQuadrantColors(); //list of every box's average color of the input image
-        //allImageColors = getSourceImageColors(); //list of average color of every source image
+        squarePixelColors = getQuadrantColors(); //list of every box's average color of the input image
+        allImageColors = getSourceImageColors(); //list of average color of every source image
     }
 
     public List<Color> getQuadrantColors() throws FileNotFoundException {
-        FileInputStream input = new FileInputStream("src/main/resources/google.png");
+        FileInputStream input = new FileInputStream("src/main/resources/flower/flower_0001.jpg");
         Image image = new Image(input);
         List<Color> squareColors = new ArrayList<>();
         int width = (int) image.getWidth();
@@ -37,8 +36,8 @@ public class ImagePixels {
         Color quadrantColorTotal;
         PixelReader pixelReader = image.getPixelReader();
         // divide the x and y pixels into 50 x 50 quadrants and go through each quadrant individually
-        for (int squareX = 0; squareX < width; squareX += SQUARES) {
-            for (int squareY = 0; squareY < height; squareY += SQUARES) {
+        for (int squareX = 0; squareX+SQUARES < width; squareX += SQUARES) {
+            for (int squareY = 0; squareY+SQUARES < height; squareY += SQUARES) {
                 // Store the RGB individually of each pixel in the quadrant to
                 // get the average of the 50x50 of this quadrant
                 for (int x = squareX; x < squareX + SQUARES; x++) {
@@ -105,8 +104,8 @@ public class ImagePixels {
         return difference;
     }
 
-    //exists 2 lists of colors. loop through each list
-    public File closestColorDifference() {
+    public List closestColorDifference() {
+        List<File> closestFiles = new ArrayList<File>();
         double min = 1.0;
         File[] file = new File("src/main/resources/flower").listFiles();
         File closestFile = file[0];
@@ -119,7 +118,8 @@ public class ImagePixels {
                     closestFile = file[j];
                 }
             }
+            closestFiles.add(closestFile);
         }
-        return closestFile;
+        return closestFiles;
     }
 }
