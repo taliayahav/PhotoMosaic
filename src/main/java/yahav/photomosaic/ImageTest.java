@@ -26,7 +26,7 @@ public class ImageTest extends Application {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        ImagePixels imagePixels = new ImagePixels();
+        ImagePixels imagePixels = new ImagePixels("src/main/resources/sourceimages/google-logo.jpeg");
 //        List<Color> list = imagePixels.getSourceImageColors();
 //        System.out.println(list);
 //        System.out.println(list.size()); //should be just red

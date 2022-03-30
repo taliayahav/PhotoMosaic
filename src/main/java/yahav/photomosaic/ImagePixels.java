@@ -14,21 +14,23 @@ public class ImagePixels {
 
     public List<Color> squarePixelColors;
     public List<Color> allImageColors;
+    final int SQUARES;
+    public int width;
+    public int height;
+    private Image image;
 
-    ArrayList<Rectangle2D> squareInput = new ArrayList<>(); //array of input squares to compare to source images
-
-    public ImagePixels() throws FileNotFoundException {
+    public ImagePixels(String fileName) throws FileNotFoundException {
+        FileInputStream input = new FileInputStream("src/main/resources/sourceimages/google-logo.jpeg");
+        image = new Image(input);
+        width = (int) image.getWidth();
+        height = (int) image.getHeight();
+        SQUARES = 50;
         squarePixelColors = getQuadrantColors(); //list of every box's average color of the input image
         allImageColors = getSourceImageColors(); //list of average color of every source image
     }
 
     public List<Color> getQuadrantColors() throws FileNotFoundException {
-        FileInputStream input = new FileInputStream("src/main/resources/flower/flower_0001.jpg");
-        Image image = new Image(input);
         List<Color> squareColors = new ArrayList<>();
-        int width = (int) image.getWidth();
-        int height = (int) image.getHeight();
-        final int SQUARES = 50;
         final int quadrantSize = SQUARES * SQUARES;
         double redPixels = 0;
         double greenPixels = 0;
@@ -67,7 +69,6 @@ public class ImagePixels {
     public List<Color> getSourceImageColors() {
         List<Color> sourceImageColors = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
-        //File[] file = new File("src/main/resources/sourceimages").listFiles(); //find better way to access files
         Image[] fileImgs;
         fileImgs = new Image[file.length];
         for (int i = 0; i < fileImgs.length; i++) {
@@ -105,7 +106,7 @@ public class ImagePixels {
     }
 
     public List closestColorDifference() {
-        List<File> closestFiles = new ArrayList<File>();
+        List<Image> closestFiles = new ArrayList<Image>();
         double min = 1.0;
         File[] file = new File("src/main/resources/flower").listFiles();
         File closestFile = file[0];
@@ -118,7 +119,8 @@ public class ImagePixels {
                     closestFile = file[j];
                 }
             }
-            closestFiles.add(closestFile);
+            Image closestImage = new Image(closestFile.getAbsolutePath());
+            closestFiles.add(closestImage);
         }
         return closestFiles;
     }

@@ -26,7 +26,26 @@ public class PhotoMosaicApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FileInputStream input = new FileInputStream("src/main/resources/google-logo.jpeg");
+        ImagePixels imagePixels = new ImagePixels("/Users/taliayahav/PhotoMosaic/src/main/resources/sourceimages/redPicture.JPG");
+        List<Image> files = imagePixels.closestColorDifference();
+        StackPane root = new StackPane();
+        int index = 0;
+        for(int x= 0; x + imagePixels.SQUARES < imagePixels.width; x += imagePixels.SQUARES){
+            for(int y= 0; y + imagePixels.SQUARES < imagePixels.height; y += imagePixels.SQUARES){
+                Image individualImage = files.get(index);
+                //FileInputStream matchingImages = new FileInputStream(file.getAbsoluteFile());
+                //Image individualImage = new Image(matchingImages);
+                ImageView individualImageView = new ImageView();
+                individualImageView.setImage(individualImage);
+                individualImageView.setFitHeight(50);
+                individualImageView.setFitWidth(50);
+                individualImageView.setX(x);
+                individualImageView.setY(y);
+                root.getChildren().add(individualImageView);
+            }
+            x = 0;
+        }
+        FileInputStream input = new FileInputStream("src/main/resources/google.png");
         Image image = new Image(input);
         ImageView imageView = new ImageView();
         imageView.setFitHeight(300);
@@ -34,10 +53,9 @@ public class PhotoMosaicApplication extends Application {
         imageView.setImage(image);
 
 
+
         // Display image on screen
         imageView.setImage(image);
-        StackPane root = new StackPane();
-        root.getChildren().add(imageView);
         Scene scene = new Scene(root, 300, 300);
         primaryStage.setTitle("Image Read Test");
         primaryStage.setScene(scene);
