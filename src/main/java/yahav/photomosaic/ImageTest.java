@@ -25,7 +25,7 @@ public class ImageTest extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         ImagePixels imagePixels = new ImagePixels("src/main/resources/sourceimages/google-logo.jpeg");
 //        List<Color> list = imagePixels.getSourceImageColors();
 //        System.out.println(list);

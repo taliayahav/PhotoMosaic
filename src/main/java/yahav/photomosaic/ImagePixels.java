@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class ImagePixels {
@@ -20,7 +21,7 @@ public class ImagePixels {
     private Image image;
 
     public ImagePixels(String fileName) throws FileNotFoundException {
-        FileInputStream input = new FileInputStream("src/main/resources/sourceimages/google-logo.jpeg");
+        FileInputStream input = new FileInputStream(fileName);
         image = new Image(input);
         width = (int) image.getWidth();
         height = (int) image.getHeight();
@@ -69,13 +70,14 @@ public class ImagePixels {
     public List<Color> getSourceImageColors() {
         List<Color> sourceImageColors = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
-        Image[] fileImgs;
-        fileImgs = new Image[file.length];
-        for (int i = 0; i < fileImgs.length; i++) {
+        //Image[] fileImgs;
+        //fileImgs = new Image[file.length];
+        Image fileImage;
+        for (int i = 0; i < file.length; i++) {
             String stringURI = file[i].toURI().toString();
-            Image fileImage = new Image(stringURI); //converts filename to image
+            fileImage = new Image(stringURI); //converts filename to image
             PixelReader pixelReader = fileImage.getPixelReader();
-            fileImgs[i] = fileImage; //adds each image to fileImgs list
+            //fileImgs[i] = fileImage; //adds each image to fileImgs list
             Color colorTotal;
             double redPixels = 0;
             double greenPixels = 0;
@@ -95,6 +97,7 @@ public class ImagePixels {
             colorTotal = Color.color(redPixels / numPixels, greenPixels / numPixels, bluePixels / numPixels);
             sourceImageColors.add(colorTotal);
         }
+
         return sourceImageColors;
     }
 
@@ -105,8 +108,8 @@ public class ImagePixels {
         return difference;
     }
 
-    public List closestColorDifference() {
-        List<Image> closestFiles = new ArrayList<Image>();
+    public List closestColorDifference() throws IOException {
+        List<Image> closestFiles = new ArrayList<>();
         double min = 1.0;
         File[] file = new File("src/main/resources/flower").listFiles();
         File closestFile = file[0];
@@ -119,7 +122,9 @@ public class ImagePixels {
                     closestFile = file[j];
                 }
             }
-            Image closestImage = new Image(closestFile.getAbsolutePath());
+            FileInputStream convertFile = new FileInputStream(closestFile.getAbsoluteFile());
+            Image closestImage = new Image(convertFile);
+            convertFile.close();
             closestFiles.add(closestImage);
         }
         return closestFiles;
