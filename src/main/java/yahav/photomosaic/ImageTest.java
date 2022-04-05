@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -24,13 +25,16 @@ public class ImageTest extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        ImagePixels imagePixels = new ImagePixels();
-//        List<Color> list = imagePixels.getSrcImgAvgColors();
+    public static void main(String[] args) throws IOException {
+        ImagePixels imagePixels = new ImagePixels("src/main/resources/sourceimages/colorfulimage.jpeg");
+        imagePixels.closestColorDifference();
+//        List<Color> list = imagePixels.getSourceImageColors();
 //        System.out.println(list);
 //        System.out.println(list.size()); //should be just red
-        List<Color> colorList = imagePixels.squarePixelColors;
-        //System.out.println(colorList);
-
+//        List<Color> colorList = imagePixels.squarePixelColors;
+//        System.out.println(colorList);
+//        List files = imagePixels.closestColorDifference();
+//        System.out.println(files);
+        //look at rocket application for application and fxml for when running, it opens a square
     }
 }
