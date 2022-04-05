@@ -5,17 +5,21 @@ import javafx.scene.image.Image;
 import javafx.scene.image.PixelReader;
 import javafx.scene.paint.Color;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class ImagePixels {
 
     public List<Color> squarePixelColors;
     public List<Color> allImageColors;
-    final int SQUARES;
+    final int SQUARES = 50;
     public int width;
     public int height;
     private Image image;
@@ -25,7 +29,6 @@ public class ImagePixels {
         image = new Image(input);
         width = (int) image.getWidth();
         height = (int) image.getHeight();
-        SQUARES = 50;
         squarePixelColors = getQuadrantColors(); //list of every box's average color of the input image
         allImageColors = getSourceImageColors(); //list of average color of every source image
     }
@@ -108,9 +111,9 @@ public class ImagePixels {
         return difference;
     }
 
-    public List closestColorDifference() throws IOException {
-        List<Image> closestFiles = new ArrayList<>();
-        double min = 1.0;
+    public List<File> closestColorDifference() throws IOException {
+        List<File> closestFiles = new ArrayList<>();
+        double min = Double.MAX_VALUE;
         File[] file = new File("src/main/resources/flower").listFiles();
         File closestFile = file[0];
         for (int i = 0; i < squarePixelColors.size(); i++) { //every color in the input image list
@@ -119,14 +122,44 @@ public class ImagePixels {
                 double distance = colorDistance(compare, allImageColors.get(j)); //finds distance using formula between each box
                 if (distance < min) { //if distance between the two images is smaller than minimum
                     min = distance; //min becomes the distance
-                    closestFile = file[j];
+                    closestFile = file[j]; //returns the closest matching image from source images
+                    // to the current input image box as a file
                 }
             }
-            FileInputStream convertFile = new FileInputStream(closestFile.getAbsoluteFile());
-            Image closestImage = new Image(convertFile);
-            convertFile.close();
-            closestFiles.add(closestImage);
+//            FileInputStream convertFile = new FileInputStream(closestFile.getAbsoluteFile());
+//            Image closestImage = new Image(convertFile);
+//            convertFile.close();
+            closestFiles.add(closestFile);
+            min = Double.MAX_VALUE;
         }
+        createImage(closestFiles);
         return closestFiles;
+    }
+
+    public void createImage(List<File> imageList) throws IOException {
+        BufferedImage result = new BufferedImage(
+                width, height,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics g = result.getGraphics();
+        int index = 0;
+        for(int x= 0; x + SQUARES < width; x += SQUARES){
+            for(int y= 0; y + SQUARES < height; y += SQUARES){
+                BufferedImage bi = ImageIO.read(imageList.get(index));
+                g.drawImage(bi, x, y, null);
+                index++;
+            }
+        }
+        ImageIO.write(result,"png",new File("result.png"));
+//        int x = 0;
+//        int y = 0;
+//        for(File image : imageList){
+//            BufferedImage bi = ImageIO.read(image);
+//            g.drawImage(bi, x, y, null);
+//            x += 256;
+//            if(x > result.getWidth()){
+//                x = 0;
+//                y += bi.getHeight();
+//            }
+//        }
     }
 }

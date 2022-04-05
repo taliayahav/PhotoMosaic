@@ -26,15 +26,15 @@ public class ImageTest extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        ImagePixels imagePixels = new ImagePixels("src/main/resources/sourceimages/google-logo.jpeg");
+        ImagePixels imagePixels = new ImagePixels("src/main/resources/sourceimages/colorfulimage.jpeg");
+        imagePixels.closestColorDifference();
 //        List<Color> list = imagePixels.getSourceImageColors();
 //        System.out.println(list);
 //        System.out.println(list.size()); //should be just red
 //        List<Color> colorList = imagePixels.squarePixelColors;
 //        System.out.println(colorList);
-        List files = imagePixels.closestColorDifference();
-        System.out.println(files);
+//        List files = imagePixels.closestColorDifference();
+//        System.out.println(files);
         //look at rocket application for application and fxml for when running, it opens a square
-
     }
 }
