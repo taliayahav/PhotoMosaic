@@ -6,7 +6,7 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 // This is the class with the main to run when the application starts.
-mainClassName = 'yahav.photomosaic.ImageTest'
+mainClassName = 'yahav.photomosaic.PhotomosaicApplication'
 
 repositories {
     mavenCentral()
