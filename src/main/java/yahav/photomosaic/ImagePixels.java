@@ -19,7 +19,7 @@ public class ImagePixels {
 
     public List<Color> squarePixelColors;
     public List<Color> allImageColors;
-    final int SQUARES = 50;
+    final int SQUARES = 10;
     public int width;
     public int height;
     private Image image;
@@ -33,7 +33,7 @@ public class ImagePixels {
         allImageColors = getSourceImageColors(); //list of average color of every source image
     }
 
-    public List<Color> getQuadrantColors() throws FileNotFoundException {
+    private List<Color> getQuadrantColors() throws FileNotFoundException {
         List<Color> squareColors = new ArrayList<>();
         final int quadrantSize = SQUARES * SQUARES;
         double redPixels = 0;
@@ -70,7 +70,7 @@ public class ImagePixels {
         return squareColors;
     }
 
-    public List<Color> getSourceImageColors() {
+    private List<Color> getSourceImageColors() {
         List<Color> sourceImageColors = new ArrayList<>();
         File[] file = new File("src/main/resources/flower").listFiles();
         //Image[] fileImgs;
@@ -104,14 +104,14 @@ public class ImagePixels {
         return sourceImageColors;
     }
 
-    public double colorDistance(Color firstColor, Color secondColor) {
+    private double colorDistance(Color firstColor, Color secondColor) {
         double difference = Math.sqrt(Math.pow(secondColor.getRed() - firstColor.getRed(), 2) +
                 Math.pow(secondColor.getGreen() - firstColor.getGreen(), 2) +
                 Math.pow(secondColor.getBlue() - firstColor.getBlue(), 2));
         return difference;
     }
 
-    public List<File> closestColorDifference() throws IOException {
+    private List<File> closestColorDifference() throws IOException {
         List<File> closestFiles = new ArrayList<>();
         double min = Double.MAX_VALUE;
         File[] file = new File("src/main/resources/flower").listFiles();
@@ -126,17 +126,14 @@ public class ImagePixels {
                     // to the current input image box as a file
                 }
             }
-//            FileInputStream convertFile = new FileInputStream(closestFile.getAbsoluteFile());
-//            Image closestImage = new Image(convertFile);
-//            convertFile.close();
             closestFiles.add(closestFile);
             min = Double.MAX_VALUE;
         }
-        createImage(closestFiles);
         return closestFiles;
     }
 
-    public void createImage(List<File> imageList) throws IOException {
+    public String createImage() throws IOException {
+        List<File> imageList = closestColorDifference();
         BufferedImage result = new BufferedImage(
                 width, height,
                 BufferedImage.TYPE_INT_RGB);
@@ -149,17 +146,8 @@ public class ImagePixels {
                 index++;
             }
         }
-        ImageIO.write(result,"png",new File("result.png"));
-//        int x = 0;
-//        int y = 0;
-//        for(File image : imageList){
-//            BufferedImage bi = ImageIO.read(image);
-//            g.drawImage(bi, x, y, null);
-//            x += 256;
-//            if(x > result.getWidth()){
-//                x = 0;
-//                y += bi.getHeight();
-//            }
-//        }
+        String pathName = "result.png";
+        ImageIO.write(result,"png",new File(pathName));
+        return pathName;
     }
 }
