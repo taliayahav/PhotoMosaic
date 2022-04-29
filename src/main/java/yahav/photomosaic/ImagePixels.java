@@ -24,7 +24,7 @@ public class ImagePixels {
     public int height;
     private Image image;
 
-    public ImagePixels(String fileName) throws FileNotFoundException {
+    public ImagePixels(File fileName) throws FileNotFoundException {
         FileInputStream input = new FileInputStream(fileName);
         image = new Image(input);
         width = (int) image.getWidth();

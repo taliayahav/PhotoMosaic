@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PhotomosaicApplication extends Application {
@@ -41,18 +42,23 @@ public class PhotomosaicApplication extends Application {
 
     }
 
-    public void createPhotomosaic() throws IOException {
-        String fileName = filepathField.getText(); //gets filepath name
-        ImagePixels imagePixels = new ImagePixels(fileName); //imports imagePixels to create the mosaic
+//    public void createPhotomosaic() throws IOException {
+//        String fileName = filepathField.getText(); //gets filepath name
+//        ImagePixels imagePixels = new ImagePixels(fileName); //imports imagePixels to create the mosaic
+//        String resultName = imagePixels.createImage(); //based on given filepath, imagePixels creates new photomosaic img
+//        FileInputStream inputStream = new FileInputStream(resultName);
+//        Image image = new Image(inputStream);
+//        photomosaicImage.setImage(image);
+//    }
+
+    public void openButton(ActionEvent actionEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        ImagePixels imagePixels = new ImagePixels(selectedFile); //imports imagePixels to create the mosaic
         String resultName = imagePixels.createImage(); //based on given filepath, imagePixels creates new photomosaic img
         FileInputStream inputStream = new FileInputStream(resultName);
         Image image = new Image(inputStream);
         photomosaicImage.setImage(image);
-    }
-
-    public void openButton(ActionEvent actionEvent) {
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(null);
     }
 
     public static void main(String[] args) {
