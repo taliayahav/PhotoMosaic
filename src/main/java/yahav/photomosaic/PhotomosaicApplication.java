@@ -1,16 +1,20 @@
 package yahav.photomosaic;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -21,6 +25,9 @@ public class PhotomosaicApplication extends Application {
     @FXML
     TextField filepathField;
 
+    @FXML
+    Button openButton;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/PhotomosaicUI.fxml"));
@@ -30,15 +37,22 @@ public class PhotomosaicApplication extends Application {
         primaryStage.setTitle("Photomosaic Creator");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
     }
 
     public void createPhotomosaic() throws IOException {
-        String fileName = filepathField.getText();
-        ImagePixels imagePixels = new ImagePixels(fileName);
-        String resultName = imagePixels.createImage();
+        String fileName = filepathField.getText(); //gets filepath name
+        ImagePixels imagePixels = new ImagePixels(fileName); //imports imagePixels to create the mosaic
+        String resultName = imagePixels.createImage(); //based on given filepath, imagePixels creates new photomosaic img
         FileInputStream inputStream = new FileInputStream(resultName);
         Image image = new Image(inputStream);
         photomosaicImage.setImage(image);
+    }
+
+    public void openButton(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
     }
 
     public static void main(String[] args) {
