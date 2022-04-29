@@ -20,10 +20,10 @@
 
 <TextField fx:id="filepathField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
 
-<Button fx:id="createPhotomosaicButton" text="Create Photomosaic" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+<!--<Button fx:id="createPhotomosaicButton" text="Create Photomosaic" GridPane.columnIndex="1" GridPane.rowIndex="3"/>-->
 <!--        onAction="#createPhotomosaic"-->
 
-    <Button fx:id="openButton" text="Open" GridPane.columnIndex="1" GridPane.rowIndex="4"
+    <Button fx:id="openButton" text="Open" GridPane.columnIndex="1" GridPane.rowIndex="3"
             onAction="#openButton"/>
 
     <ImageView fx:id="photomosaicImage" GridPane.rowIndex="5" fitHeight="500.0" fitWidth="600.0"
