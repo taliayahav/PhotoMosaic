@@ -142,7 +142,8 @@ public class ImagePixels {
         for(int x= 0; x + SQUARES < width; x += SQUARES){
             for(int y= 0; y + SQUARES < height; y += SQUARES){
                 BufferedImage bi = ImageIO.read(imageList.get(index));
-                g.drawImage(bi, x, y, null);
+                //g.drawImage(bi, x, y, null);
+                g.drawImage(bi, x,y,width/SQUARES, height/SQUARES, null);
                 index++;
             }
         }
