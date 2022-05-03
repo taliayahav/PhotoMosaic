@@ -10,13 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class PhotomosaicApplication extends Application {
@@ -41,15 +39,6 @@ public class PhotomosaicApplication extends Application {
 
 
     }
-
-//    public void createPhotomosaic() throws IOException {
-//        String fileName = filepathField.getText(); //gets filepath name
-//        ImagePixels imagePixels = new ImagePixels(fileName); //imports imagePixels to create the mosaic
-//        String resultName = imagePixels.createImage(); //based on given filepath, imagePixels creates new photomosaic img
-//        FileInputStream inputStream = new FileInputStream(resultName);
-//        Image image = new Image(inputStream);
-//        photomosaicImage.setImage(image);
-//    }
 
     public void openButton(ActionEvent actionEvent) throws IOException {
         FileChooser fileChooser = new FileChooser();

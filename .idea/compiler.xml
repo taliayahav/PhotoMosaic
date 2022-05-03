@@ -2,7 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.8">
-      <module name="PhotoMosaic.screenshots" target="15" />
+      <module name="PhotoMosaic.screenshots.main" target="15" />
+      <module name="PhotoMosaic.screenshots.test" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
